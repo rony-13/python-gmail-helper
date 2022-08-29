@@ -1,5 +1,4 @@
-from __future__ import print_function
-
+import sys
 import os.path
 
 # For Google APIs
@@ -19,6 +18,49 @@ from mimetypes import guess_type as guess_mime_type
 
 # For encoding/decoding messages in base64
 from base64 import urlsafe_b64decode, urlsafe_b64encode
+
+# For Command line compatibility
+import argparse
+parser = argparse.ArgumentParser(description="Gmail Helper")
+parser.add_argument("--manual", action="store_true", default=False, help="specifies if the script is running in manual mode")
+parser.add_argument("-o", choices={"email","search","none"}, default="none", help="Send Email, Search Email, Do Nothing")
+parser.add_argument("-e", action='store', type=str, help="Email address of recipient")
+parser.add_argument("-s", action='store', type=str, default="",help="Subject line")
+parser.add_argument("-b", action='store', type=str, default="",help="Body of email")
+parser.add_argument("-k", action='store', type=str, help="Search keyword")
+
+args = parser.parse_args()
+mode = args.manual
+action = args.o
+recipient = args.e
+subject = args.s
+body = args.b
+keyword = args.k
+
+#print(mode, action, recipient, subject, body, keyword)
+
+# Handling without recipient email sent request, Subject and Body can be handled if necessary
+if mode and action == "email" and not recipient:
+    print("Error on dependency for manual mode")
+    sys.exit(1)
+elif mode and action == "email" and recipient:
+    # Warning for empty subject line and/or body
+    if subject =="" and body == "":
+        print("Want to send email without subject and body? [y/N]")
+        confirmation = input()
+    elif subject =="":
+        print("Want to send email without subject? [y/N]")
+        confirmation = input()
+    elif body == "":
+        print("Want to send email without body? [y/N]")
+        confirmation = input()
+    else:
+        confirmation = 'Y'
+    if(confirmation == 'n' or confirmation == 'N' ):
+        print("Action abort")
+        sys.exit(1)
+else:
+    pass
 
 # If modifying these scopes, delete the file token.json.
 SCOPES = ['https://mail.google.com/']
@@ -89,13 +131,13 @@ class my_gmail:
                 add_attachment(message, filename)
         return {'raw': urlsafe_b64encode(message.as_bytes()).decode()}
 
-    def send_message(self, destination, obj, body, attachments=[]):
+    def send_email(self, destination, obj, body, attachments=[]):
         return self.service.users().messages().send(
           userId="me",
           body=self.build_message(destination, obj, body, attachments)
         ).execute()
 
-    def search_messages(self, query):
+    def search_emails(self, query):
         result = self.service.users().messages().list(userId='me',q=query).execute()
         msg = [ ]
         if 'messages' in result:
@@ -110,6 +152,15 @@ class my_gmail:
 
 if __name__ == '__main__':
     worker = my_gmail()
-    #worker.send_message("md.rashedul.amin@gmail.com", "Test subject", "This is the test body of the email")
-    messages = worker.search_messages("to:md.rashedul.amin@gmail.com")
-    print(messages)
+    if(mode):
+        if(action=="email"):
+            worker.send_email(recipient, subject, body)
+        elif(action=="search"):
+            emails_matched = worker.search_emails("to:md.rashedul.amin@gmail.com")
+            print(emails_matched)
+        else:
+            print("No action selected")
+    else:
+        worker.send_email("md.rashedul.amin@gmail.com", "Test subject", "This is the test body of the email")
+        emails_matched = worker.search_emails("to:md.rashedul.amin@gmail.com")
+        print(messages)
