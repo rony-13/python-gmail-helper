@@ -94,3 +94,41 @@ Here is the Help for the command line application
 ```console
 python helper-updated.py --help
 ```
+```console
+usage: helper-updated.py [-h] [--manual] [-o {search,email,none}] [-e E] [-s S] [-b B] [-k K]
+Gmail Helper
+optional arguments:
+  -h, --help            show this help message and exit
+  --manual              specifies if the script is running in manual mode
+  -o {search,email,none}
+                        Send Email, Search Email, Do Nothing
+  -e E                  Email address of recipient
+  -s S                  Subject line
+  -b B                  Body of email
+  -k K                  Search keyword
+```
+
+###### To send an email:
+```console
+python helper.py --manual -o email -e "md.rashedul.amin@gmail.com" -s "galaxy" -b "hello universe"
+```
+**Note:** recipient email is mandatory if operation choosen to sent email. Failing providing this argument, system will abort saying "Error on dependency for manual mode"
+**To send an email with or without subject line or body:**
+- Without Body
+    ```console
+    python helper.py --manual -o email -e "md.rashedul.amin@gmail.com" -s "galaxy"
+    Want to send email without body? [y/N]
+    y
+    ```
+- Without Subject
+    ```console
+    python helper.py --manual -o email -e "md.rashedul.amin@gmail.com" -b "hello universe"
+    Want to send email without subject? [y/N]
+    y
+    ```
+**Note:** If you choose **N** in any case, application will abort.
+
+###### To search in email:
+```console
+python helper.py --manual -o search -k "hello world" 
+```

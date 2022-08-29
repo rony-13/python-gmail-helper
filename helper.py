@@ -163,4 +163,4 @@ if __name__ == '__main__':
     else:
         worker.send_email("md.rashedul.amin@gmail.com", "Test subject", "This is the test body of the email")
         emails_matched = worker.search_emails("to:md.rashedul.amin@gmail.com")
-        print(messages)
+        print(emails_matched)
