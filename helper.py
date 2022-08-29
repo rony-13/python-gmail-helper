@@ -156,7 +156,7 @@ if __name__ == '__main__':
         if(action=="email"):
             worker.send_email(recipient, subject, body)
         elif(action=="search"):
-            emails_matched = worker.search_emails("to:md.rashedul.amin@gmail.com")
+            emails_matched = worker.search_emails(keyword)
             print(emails_matched)
         else:
             print("No action selected")
