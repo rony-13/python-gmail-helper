@@ -58,7 +58,7 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
     - Application type **Desktop App**
     - Create
     - Download the json and rename it as credential.json and paste it inside projetc folder
-- First time Click "quickstart.py" and validate the provided url to autorize this application. Links look like this "Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=<clientId here>.apps.googleusercontent.com&redirect_uri=<redirectUri here>&access_type=offline"
+- First time Click "helper.py" and validate the provided url to autorize this application. Links look like this "Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=<clientId here>.apps.googleusercontent.com&redirect_uri=<redirectUri here>&access_type=offline"
 - Choose the account you added as test user and press **Continue** two times
 - Once it is enabled you will see "The authentication flow has completed. You may close this window." IN that window as confirmation. 
 - Now you are set with all pre-requisites.
