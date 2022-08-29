@@ -62,6 +62,14 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
 ## Software Usage guide
 ### Initial Setup
 - Clone the repository
+- run from command line (use python3.7 or above as google apis are not compatible <3.7)
+    ```console
+    sudo apt-get install python3.7-venv
+    python3.7 -m venv venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+    ```
+**Note:** If you already have the credentials.json and token.json in place within project root folder and already authorize the application then you can skip next 5 steps
 - First time Click "helper.py" and validate the provided url to autorize this application. Links look like this "Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=<clientId here>.apps.googleusercontent.com&redirect_uri=<redirectUri here>&access_type=offline"
 - Choose the account you added as test user and press **Continue** two times
 - Once it is enabled you will see "The authentication flow has completed. You may close this window." IN that window as confirmation.
