@@ -58,7 +58,39 @@ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-
     - Application type **Desktop App**
     - Create
     - Download the json and rename it as credential.json and paste it inside projetc folder
+
+## Software Usage guide
+### Initial Setup
+- Clone the repository
 - First time Click "helper.py" and validate the provided url to autorize this application. Links look like this "Please visit this URL to authorize this application: https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=<clientId here>.apps.googleusercontent.com&redirect_uri=<redirectUri here>&access_type=offline"
 - Choose the account you added as test user and press **Continue** two times
-- Once it is enabled you will see "The authentication flow has completed. You may close this window." IN that window as confirmation. 
+- Once it is enabled you will see "The authentication flow has completed. You may close this window." IN that window as confirmation.
+- A toke.json will be generated in project folder. You need to delete it if you update SCOPE of the project
 - Now you are set with all pre-requisites.
+
+### Run
+- Before Running the program Initial setup is necessary. Make sure you have both working credentials.json and token.json both inside the project folder.
+
+Project can be used as a library or from command line. Making this as a package WIP. 
+#### Library
+You can import gmail_helper class from helper.py and utilize. 
+###### Current available actions
+- Send email
+    ```python
+    from helper import my_gmail
+    worker = my_gmail()
+    worker.send_email("<your email here>@email.com", "<Subject Line goes here>", "<Subject body goes here>")
+    ```
+    **Note:** If you are using your own email, credential and token remember to change default sender EMAIL on the script
+- Search email
+    ```python
+    from helper import my_gmail
+    worker = my_gmail()
+    # Supports Gmail Advanced Search Features & Create Filters
+    emails_matched = worker.search_emails("<search keywords goes here>")
+    ```
+#### Command line application
+Here is the Help for the command line application
+```console
+python helper-updated.py --help
+```
